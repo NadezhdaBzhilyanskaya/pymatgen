@@ -7,7 +7,6 @@ numpy for performance.
 """
 
 from __future__ import division
-from pymatgen.util.coord_utils import get_angle
 
 __author__ = "Shyue Ping Ong"
 __copyright__ = "Copyright 2011, The Materials Project"
@@ -18,8 +17,10 @@ __date__ = "Nov 27, 2011"
 
 import numpy as np
 import math
+import cProfile 
 from monty.dev import deprecated
 from pymatgen.core.lattice import Lattice
+from pymatgen.util.coord_utils import get_angle as get_angle_numpy
 
 
 def find_in_coord_list(coord_list, coord, atol=1e-8):
@@ -413,7 +414,7 @@ def barycentric_coords(coords, simplex):
     return np.append(all_but_one, last_coord, axis=-1)
 
 
-def get_angle(v1, v2, units="degrees"):
+def get_angle_math(v1, v2, units="degrees"):
     """
     Calculates the angle between two vectors.
 
@@ -435,3 +436,25 @@ def get_angle(v1, v2, units="degrees"):
         return angle
     else:
         raise ValueError("Invalid units {}".format(units))
+    
+    
+    
+def CompareFunctionsWithProfiler():   
+    """Initiates program"""
+    cProfile.run('ComparegetAngle()')
+    print("Done")
+      
+    
+    
+def ComparegetAngle():
+    vector1 = np.array([1,2])
+    vector2 = np.array([5,6])
+    
+    for x in range(0, 100000):    
+        get_angle_numpy(vector1,vector2)
+    
+    for x in range(0, 100000):    
+        get_angle_math(vector1,vector2)
+   
+if __name__ == "__main__":   
+    CompareFunctionsWithProfiler()
