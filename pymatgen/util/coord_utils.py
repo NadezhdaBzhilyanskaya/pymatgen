@@ -7,6 +7,7 @@ numpy for performance.
 """
 
 from __future__ import division
+from pymatgen.util.coord_utils import get_angle
 
 __author__ = "Shyue Ping Ong"
 __copyright__ = "Copyright 2011, The Materials Project"
