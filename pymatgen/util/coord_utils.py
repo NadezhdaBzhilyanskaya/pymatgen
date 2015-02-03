@@ -414,7 +414,7 @@ def barycentric_coords(coords, simplex):
     return np.append(all_but_one, last_coord, axis=-1)
 
 
-def get_angle_math(v1, v2, units="degrees"):
+def get_angle(v1, v2, units="degrees"):
     """
     Calculates the angle between two vectors.
 
@@ -454,7 +454,7 @@ def ComparegetAngle():
         get_angle_numpy(vector1,vector2)
     
     for x in range(0, 100000):    
-        get_angle_math(vector1,vector2)
+        get_angle(vector1,vector2)  
    
 if __name__ == "__main__":   
     CompareFunctionsWithProfiler()
